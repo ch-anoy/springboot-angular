@@ -1,5 +1,6 @@
 package eatl.we.employeemanager.service;
 
+import eatl.we.employeemanager.exception.UserNotFoundException;
 import eatl.we.employeemanager.model.Employee;
 import eatl.we.employeemanager.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class EmployeeService {
     }
     public Employee findEmployeeById(Long id)
     {
-        return employeeRepo.findEmployeeById(id);
+        return employeeRepo.findEmployeeById(id).orElseThrow(()->new UserNotFoundException("User by id" + id + "was not found"));
     }
     public void deleteEmployee(Long id)
     {
